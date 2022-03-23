@@ -3,6 +3,7 @@ import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 import moment from "moment";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export class News extends Component {
   static defaultProps = {
@@ -22,8 +23,9 @@ export class News extends Component {
     console.log("Hello I am a constructor from News Component");
     this.state = {
       article: [],
-      loading: false,
+      loading: true,
       page: 1,
+      totalResults: 0,
     };
     document.title = `${this.capitalizeFirstLetter(
       this.props.category
@@ -55,38 +57,64 @@ export class News extends Component {
     this.updateNews();
   };
 
+  fetchMoreData = async () => {
+    this.setState({ page: this.state.page + 1 });
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=eb9becf647b24134aa1ae5878abb62f2&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let data = await fetch(url);
+    let parseddata = await data.json();
+    console.log(parseddata);
+    // this.setState({ articles:  });
+    this.setState({
+      article: this.state.article.concat(parseddata.articles),
+      totalArticles: parseddata.totalResults,
+    });
+  };
+
   render() {
     // console.log(this.state.totalResults);
     console.log(this.props);
     return (
-      <div className="container my-3">
+      <>
         <h2 className="text-center" style={{ margin: "30px 0" }}>
           NewsMoneky - Top {this.capitalizeFirstLetter(this.props.category)}{" "}
           Headlines
         </h2>
         {/* <h2>NewsMoneky - Top Headlines</h2> */}
         {this.state.loading && <Spinner />}
-        <div className="row">
-          {!this.state.loading &&
-            this.state.article.map((element) => {
-              return (
-                <div className="col-md-4" key={element.url}>
-                  <NewsItem
-                    title={element.title ? element.title : ""}
-                    description={element.description ? element.description : ""}
-                    imageUrl={element.urlToImage}
-                    newsUrl={element.url}
-                    Author={element.author ? element.author : ""}
-                    date={moment(element.publishedAt).format(
-                      "ddd, Do MMM, hh:mm a"
-                    )}
-                    source={element.source.name}
-                  />
-                </div>
-              );
-            })}
-        </div>
-        <div className="container d-flex justify-content-between">
+
+        <InfiniteScroll
+          dataLength={this.state.article.length}
+          next={this.fetchMoreData}
+          hasMore={this.state.article.length !== this.state.totalResults}
+          loader={<Spinner />}
+        >
+          <div className="container">
+            <div className="row">
+              {!this.state.loading &&
+                this.state.article.map((element) => {
+                  return (
+                    <div className="col-md-4" key={element.url}>
+                      <NewsItem
+                        title={element.title ? element.title : ""}
+                        description={
+                          element.description ? element.description : ""
+                        }
+                        imageUrl={element.urlToImage}
+                        newsUrl={element.url}
+                        Author={element.author ? element.author : ""}
+                        date={moment(element.publishedAt).format(
+                          "ddd, Do MMM, hh:mm a"
+                        )}
+                        source={element.source.name}
+                      />
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        </InfiniteScroll>
+
+        {/* <div className="container d-flex justify-content-between">
           <button
             disabled={this.state.page <= 1}
             type="button"
@@ -106,8 +134,8 @@ export class News extends Component {
           >
             Next &rarr;
           </button>
-        </div>
-      </div>
+        </div> */}
+      </>
     );
   }
 }
