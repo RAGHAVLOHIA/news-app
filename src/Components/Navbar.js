@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "../Styles/news-app.css";
 
 export class Navbar extends Component {
   render() {
@@ -27,48 +28,52 @@ export class Navbar extends Component {
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/">
+                  <Link
+                    className="nav-link active navbar-link"
+                    aria-current="page"
+                    to="/"
+                  >
                     Home
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/About">
+                  <Link className="nav-link navbar-link" to="/About">
                     About
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/Business">
-                    business
+                  <Link className="nav-link navbar-link" to="/Business">
+                    Business
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/Entertainment">
-                    entertainment
+                  <Link className="nav-link navbar-link" to="/Entertainment">
+                    Entertainment
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/General">
-                    general
+                  <Link className="nav-link navbar-link" to="/General">
+                    General
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/Health">
-                    health
+                  <Link className="nav-link navbar-link" to="/Health">
+                    Health
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/Science">
-                    science
+                  <Link className="nav-link navbar-link" to="/Science">
+                    Science
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/Sports">
-                    sports
+                  <Link className="nav-link navbar-link" to="/Sports">
+                    Sports
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/Technology">
-                    technology
+                  <Link className="nav-link navbar-link" to="/Technology">
+                    Technology
                   </Link>
                 </li>
               </ul>

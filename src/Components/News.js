@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
-import moment from "moment";
+
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export class News extends Component {
@@ -37,7 +37,6 @@ export class News extends Component {
     let data = await fetch(url);
     let parseddata = await data.json();
     console.log(parseddata);
-    // this.setState({ articles:  });
     this.setState({
       article: parseddata.articles,
       totalArticles: parseddata.totalResults,
@@ -63,7 +62,6 @@ export class News extends Component {
     let data = await fetch(url);
     let parseddata = await data.json();
     console.log(parseddata);
-    // this.setState({ articles:  });
     this.setState({
       article: this.state.article.concat(parseddata.articles),
       totalArticles: parseddata.totalResults,
@@ -71,7 +69,6 @@ export class News extends Component {
   };
 
   render() {
-    // console.log(this.state.totalResults);
     console.log(this.props);
     return (
       <>
@@ -80,12 +77,12 @@ export class News extends Component {
           Headlines
         </h2>
         {/* <h2>NewsMoneky - Top Headlines</h2> */}
-        {this.state.loading && <Spinner />}
+        {/* {this.state.loading && <Spinner />} */}
 
         <InfiniteScroll
           dataLength={this.state.article.length}
           next={this.fetchMoreData}
-          hasMore={this.state.article.length !== this.state.totalResults}
+          hasMore={this.state.article.length !== this.state.totalArticles}
           loader={<Spinner />}
         >
           <div className="container">
@@ -102,9 +99,7 @@ export class News extends Component {
                         imageUrl={element.urlToImage}
                         newsUrl={element.url}
                         Author={element.author ? element.author : ""}
-                        date={moment(element.publishedAt).format(
-                          "ddd, Do MMM, hh:mm a"
-                        )}
+                        date={element.publishedAt}
                         source={element.source.name}
                       />
                     </div>
@@ -141,9 +136,3 @@ export class News extends Component {
 }
 
 export default News;
-
-// {
-//     (Date.now() - Date.parse(element.publishedAt)) / 60000 +
-//     "mins ago"
-
-//   }
