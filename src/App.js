@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export class App extends Component {
   pageSize = 6;
+  apiKey = process.env.REACT_APP_NEWS_API;
   render() {
     return (
       <div>
@@ -21,6 +22,7 @@ export class App extends Component {
                   key="general"
                   pageSize={this.pageSize}
                   country="in"
+                  apiKey={this.apiKey}
                   category="general"
                 />
               }
@@ -33,6 +35,7 @@ export class App extends Component {
                   key="technology"
                   pageSize={this.pageSize}
                   country="in"
+                  apiKey={this.apiKey}
                   category="technology"
                 />
               }
@@ -46,6 +49,7 @@ export class App extends Component {
                   key="entertainment"
                   pageSize={this.pageSize}
                   country="in"
+                  apiKey={this.apiKey}
                   category="entertainment"
                 />
               }
@@ -58,6 +62,7 @@ export class App extends Component {
                   key="general"
                   pageSize={this.pageSize}
                   country="in"
+                  apiKey={this.apiKey}
                   category="general"
                 />
               }
@@ -70,6 +75,7 @@ export class App extends Component {
                   key="health"
                   pageSize={this.pageSize}
                   country="in"
+                  apiKey={this.apiKey}
                   category="health"
                 />
               }
@@ -82,6 +88,7 @@ export class App extends Component {
                   key="science"
                   pageSize={this.pageSize}
                   country="in"
+                  apiKey={this.apiKey}
                   category="science"
                 />
               }
@@ -94,6 +101,7 @@ export class App extends Component {
                   key="sports"
                   pageSize={this.pageSize}
                   country="in"
+                  apiKey={this.apiKey}
                   category="sports"
                 />
               }
@@ -106,6 +114,7 @@ export class App extends Component {
                   key="technology"
                   pageSize={this.pageSize}
                   country="in"
+                  apiKey={this.apiKey}
                   category="technology"
                 />
               }
